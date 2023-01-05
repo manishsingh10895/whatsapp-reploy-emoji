@@ -22,18 +22,23 @@ async function getEmoteFromPython(text) {
     const process = exec(
       `python3 main.py --text="${text}"`,
       (err, stdout, stdError) => {
-        if (err) {
+      if (err) {
           console.error(err);
+        process.kill();
           reject(err);
         }
 
         if (stdout) {
+
+	     process.kill(); 
+	      
+	      
           resolve(stdout);
         }
 
-        process.kill();
 
         if (stdError) {
+		process.kill();
           console.error(stdError);
           reject(stdError);
         }

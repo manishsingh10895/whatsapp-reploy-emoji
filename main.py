@@ -1,3 +1,8 @@
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+import tensorflow as tf
+
 from transformers import pipeline
 import argparse
 import json
@@ -5,6 +10,9 @@ import re
 import random
 import codecs
 
+from transformers import logging
+
+logging.set_verbosity_error()
 
 def get_emotion(text) -> str:
     emotion = pipeline(
