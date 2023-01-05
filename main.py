@@ -111,7 +111,7 @@ def run():
     if len(rel_emoji) == 0:
         return
 
-    return_data = json.dumps({"emotion": emotion, "emoji": rel_emoji})
+    return_data = json.dumps({"emotion": emotion, "emoji": rel_emoji})[0]
 
     # print only the json
     # to return to nodejs process
