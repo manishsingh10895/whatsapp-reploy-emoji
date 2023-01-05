@@ -106,12 +106,12 @@ def run():
 
     # decode unicode string to emoji
 
-    rel_emoji = codecs.unicode_escape_decode(rel_emoji)
+    rel_emoji = codecs.unicode_escape_decode(rel_emoji)[0]
 
     if len(rel_emoji) == 0:
         return
 
-    return_data = json.dumps({"emotion": emotion, "emoji": rel_emoji})[0]
+    return_data = json.dumps({"emotion": emotion, "emoji": rel_emoji})
 
     # print only the json
     # to return to nodejs process
