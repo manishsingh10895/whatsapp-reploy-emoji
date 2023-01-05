@@ -7,7 +7,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-
 client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
 });
@@ -77,12 +76,13 @@ function init() {
   let chats;
   interval = setInterval(async () => {
     if (client) {
+      clearInterval(interval);
       chats = await client.getChats();
       let newChats = chats.map((c) => ({
         ...c,
       }));
-      // write it only one time to check which chat you want
 
+      // write it only one time to check which chat you want
       fs.writeFileSync("chats.json", JSON.stringify(chats));
       let envChatNames = process.env.CHAT_ID.split(",").map((s) => s.trim());
       console.log("Chat name", envChatNames);
