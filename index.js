@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+
 client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
 });
@@ -83,10 +84,9 @@ function init() {
       // write it only one time to check which chat you want
 
       fs.writeFileSync("chats.json", JSON.stringify(chats));
-
-      let requiredChatName = process.env.CHAT_ID;
-
-      let required = chats.find((c) => c.name == requiredChatName);
+      let envChatNames = process.env.CHAT_ID.split(",").map((s) => s.trim());
+      console.log("Chat name", envChatNames);
+      let required = chats.find((c) => envChatNames.includes(c.name));
       let chatId = required.id;
       // startTimer(chatId._serialized);
       requiredChatId = chatId._serialized;

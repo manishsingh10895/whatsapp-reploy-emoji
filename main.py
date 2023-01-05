@@ -5,6 +5,7 @@ import re
 import random
 import codecs
 
+
 def get_emotion(text) -> str:
     emotion = pipeline(
         "sentiment-analysis",
@@ -42,7 +43,7 @@ def parse_args():
 
 
 def process_emojis():
-    """Process emoji json file and order required emotions in a dictionary 
+    """Process emoji json file and order required emotions in a dictionary
     with keys as emotion text and emojis in array
 
     {
@@ -101,15 +102,18 @@ def run():
 
     rel_emoji_unicode = random.choice(relevant_emojis)
 
-    rel_emoji = re.compile(r'U\+').sub(r'\\U000', rel_emoji_unicode)
+    rel_emoji = re.compile(r"U\+").sub(r"\\U000", rel_emoji_unicode)
 
     # decode unicode string to emoji
-    
-    rel_emoji = codecs.unicode_escape_decode(rel_emoji)[0]
+
+    rel_emoji = codecs.unicode_escape_decode(rel_emoji)
+
+    if len(rel_emoji) == 0:
+        return
 
     return_data = json.dumps({"emotion": emotion, "emoji": rel_emoji})
 
-    # print only the json 
+    # print only the json
     # to return to nodejs process
     print(return_data)
 
