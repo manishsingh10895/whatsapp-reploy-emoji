@@ -1,0 +1,3 @@
+pywhatkit
+text2emotion
+transformers
